@@ -26,18 +26,20 @@ const Huya = () => {
           虎牙
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-1 mt-1">
+      <div className="grid grid-cols-2 gap-1 mt-1 md:grid-cols-3 lg:grid-cols-4 auto-cols-fr">
         {huyaData.map((i) => {
           return (
-            <div className="bg-blue-200 text-center h-40" key={i.id}>
+            // <Link to={`/huya/${i.href}`} key={i.id}>
+            <div className="bg-blue-200 flex   flex-col" key={i.id}>
               <Link to={`/huya/${i.href}`}>
-                <img src={i.pic}></img>
-                <div className="flex">
+                <img src={i.pic} className="h-30 "></img>
+                <div className="flex-grow ">
                   <div className="text-sm">{i.name}</div>
-                  <div>{i.title}</div>
+                  <div className="text-sm">{i.title}</div>
                 </div>
               </Link>
             </div>
+            // </Link>
           )
         })}
       </div>
