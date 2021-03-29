@@ -1,20 +1,26 @@
-import { useEffect, useState } from 'react'
-import axios from 'axios'
+import { useCallback, useEffect, useState } from 'react'
+import axios from '../api/ajax'
 import { Link } from 'react-router-dom'
 import MyScroll from '../components/MyScroll'
 
 const Huya = () => {
   const [huyaData, setHuyaData] = useState([])
   useEffect(() => {
-    axios.get('http://10.113.219.204:8080/huya').then(({ data }) => {
-      data = data.data
-      data.list = data.list.map((i) => ({ ...i, href: i.href.substring(21) }))
-      // console.log(data.list)
-      setHuyaData(data.list)
-    })
+    axios
+      .get('huya')
+      .then((data) => {
+        data = data.data
+        data.list = data.list.map((i) => ({ ...i, href: i.href.substring(21) }))
+        // console.log(data.list)
+        setHuyaData(data.list)
+      })
+      .catch((e) => {
+        console.log(e)
+      })
   }, [])
+  const onScrollEnd = useCallback(() => {})
   return (
-    <MyScroll>
+    <MyScroll onScrollEnd={onScrollEnd}>
       <div className="h-12 relative">
         <div className="bg-blue-400 text-white px-2 py-3 text-xl z-50 absolute inset-0 ">
           虎牙
