@@ -51,12 +51,12 @@ const Huya = () => {
         </div>
       </div>
       <div className="grid grid-cols-2 gap-1 mt-1 md:grid-cols-3 lg:grid-cols-4 auto-cols-fr">
-        {[...huyaData].map((i, index) => {
+        {huyaData.map((i, index) => {
           return (
             // <Link to={`/huya/${i.href}`} key={i.id}>
             <div className="bg-blue-200 flex   flex-col" key={index}>
               <Link to={`/huya/${i.href}`} onClick={saveY}>
-                <img src={i.pic} className="h-30 "></img>
+                <img src={i.pic} className="h-28 w-full"></img>
                 <div className="flex-grow ">
                   <div className="text-sm">{i.name}</div>
                   <div className="text-sm">{i.title}</div>

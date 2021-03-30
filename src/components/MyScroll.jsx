@@ -28,12 +28,13 @@ const MyScroll = forwardRef((props, ref) => {
     bs?.on('pullingUp', () => {
       onPullingUp()
       bs.finishPullUp()
+      bs.refresh()
     })
   }, [bs, onPullingUp])
 
-  useEffect(() => {
-    bs?.refresh()
-  })
+  // useEffect(() => {
+  //   bs?.refresh()
+  // })
 
   return (
     <div className="h-screen" ref={bsRef}>
