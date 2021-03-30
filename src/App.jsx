@@ -1,19 +1,28 @@
-import { HashRouter as Router, Switch, Route } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import { HashRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
+import store from './store'
 import Huya from './views/Huya'
 import HuyaRoom from './views/HuyaRoom'
 
 function App() {
   return (
-    <Router>
-      <Switch>
-        <Route path="/huya/:id">
-          <HuyaRoom></HuyaRoom>
-        </Route>
-        <Route path="/huya">
-          <Huya></Huya>
-        </Route>
-      </Switch>
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <Switch>
+          <Route path="/huya/:id">
+            <HuyaRoom></HuyaRoom>
+          </Route>
+          <Route
+            path="/huya"
+          >
+            <Huya></Huya>
+          </Route>
+          <Route path="/" exact>
+            <Redirect to="/huya"></Redirect>
+          </Route>
+        </Switch>
+      </Router>
+    </Provider>
   )
 }
 

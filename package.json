@@ -8,12 +8,14 @@
   },
   "dependencies": {
     "@better-scroll/core": "^2.2.1",
+    "@better-scroll/pull-up": "^2.2.1",
     "@reduxjs/toolkit": "^1.5.1",
     "axios": "^0.21.1",
     "dplayer": "^1.26.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-player": "^2.9.0",
+    "react-redux": "^7.2.3",
     "react-router-dom": "^5.2.0"
   },
   "devDependencies": {
