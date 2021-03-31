@@ -1,23 +1,41 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
-import axios from '../api/ajax'
+import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import MyScroll from '../components/MyScroll'
-import { useDispatch, useSelector } from 'react-redux'
-import { addRooms, setY } from './huyaSlice'
+import { FixedSizeGrid as Grid } from 'react-window'
+import InfiniteLoader from 'react-window-infinite-loader'
+import AutoSizer from 'react-virtualized-auto-sizer'
+import axios from '../api/ajax'
+import { useDispatch } from 'react-redux'
+import { addRooms } from './huyaSlice'
 
 const Huya = () => {
   let huyaData = useSelector((state) => state.huya.liveRooms)
   const dispatch = useDispatch()
-  const bsRef = useRef()
-  const Y = useSelector((state) => state.huya.y)
+
+  const NUM_COLUMNS = 2
+  const [totalCount, setTotalCount] = useState(huyaData.length)
+  const [rowCount, setRowCount] = useState(totalCount / NUM_COLUMNS)
+
+  const isItemLoaded = (index) => !!huyaData[index]
+
+  const loadMoreItems = (startIndex, stopIndex) => {
+    console.log('startIndex:', startIndex)
+    console.log('stopIndex:', stopIndex)
+
+    return new Promise((resolve) => resolve())
+  }
+
+  useEffect(() => {
+    console.log('huyaData----')
+    console.log(huyaData)
+    setRowCount(huyaData.length / NUM_COLUMNS)
+  }, [huyaData])
 
   useEffect(() => {
     if (huyaData?.length === 0) onPullingUp()
-    bsRef.current?.scrollTo(0, Y, 0)
   }, [])
 
   const onPullingUp = () => {
-    // console.log('---- pulling up ----')
     let count = huyaData.length
     let SIZE = 20 //每页默认20个
     let page = count / SIZE
@@ -29,7 +47,9 @@ const Huya = () => {
         },
       })
       .then((data) => {
+        console.log(data)
         data = data.data
+        setTotalCount(data.total)
         data.list = data.list.map((i) => ({ ...i, href: i.href.substring(21) }))
         dispatch(addRooms(data.list))
       })
@@ -38,38 +58,65 @@ const Huya = () => {
       })
   }
 
-  const saveY = () => {
-    console.log('y:', bsRef.current)
-    dispatch(setY(bsRef.current.y))
-    return false
+  const Cell = (props) => {
+    const { columnIndex, rowIndex, style } = props
+    const itemIndex = rowIndex * NUM_COLUMNS + columnIndex
+
+    const i = huyaData[itemIndex] || {}
+
+    return (
+      <div className="bg-blue-200 flex flex-col" key={itemIndex} style={style}>
+        {/* <Link to={`/huya/${i.href}`} onClick={saveY}> */}
+        <Link to={`/huya/${i.href}`}>
+          <img src={i.pic} className="h-24 w-48"></img>
+          <div className="flex-grow ">
+            <div className="text-sm">{i.name}</div>
+            <div className="text-sm">{i.title}</div>
+          </div>
+        </Link>
+      </div>
+    )
   }
+
   return (
-    <MyScroll onPullingUp={onPullingUp} ref={bsRef}>
-      <div className="h-12 relative">
-        <div className="bg-blue-400 text-white px-2 py-3 text-xl z-50 absolute inset-0 ">
-          虎牙
-        </div>
-      </div>
-      <div className="grid grid-cols-2 gap-1 mt-1 md:grid-cols-3 lg:grid-cols-4 auto-cols-fr">
-        {huyaData.map((i, index) => {
-          return (
-            // <Link to={`/huya/${i.href}`} key={i.id}>
-            <div className="bg-blue-200 flex   flex-col" key={index}>
-              <Link to={`/huya/${i.href}`} onClick={saveY}>
-                <img src={i.pic} className="h-28 w-full"></img>
-                <div className="flex-grow ">
-                  <div className="text-sm">{i.name}</div>
-                  <div className="text-sm">{i.title}</div>
-                </div>
-              </Link>
-            </div>
-            // </Link>
-          )
-        })}
-        {/* <div className="h-10 text-center col-span-2 py-20">返回顶部</div> */}
-      </div>
-      {/* <div className="h-10 text-center col-span-2">返回顶部</div> */}
-    </MyScroll>
+    <div className="h-screen w-screen">
+      <AutoSizer>
+        {({ height, width }) => (
+          <InfiniteLoader
+            isItemLoaded={isItemLoaded}
+            itemCount={huyaData.length}
+            loadMoreItems={loadMoreItems}
+          >
+            {({ onItemsRendered, ref }) => (
+              <Grid
+                className="List"
+                columnCount={NUM_COLUMNS}
+                columnWidth={200}
+                height={height}
+                rowCount={rowCount}
+                rowHeight={200}
+                onItemsRendered={(gridProps) => {
+                  onItemsRendered({
+                    overscanStartIndex:
+                      gridProps.overscanRowStartIndex * NUM_COLUMNS,
+                    overscanStopIndex:
+                      gridProps.overscanRowStopIndex * NUM_COLUMNS,
+                    visibleStartIndex:
+                      gridProps.visibleRowStartIndex * NUM_COLUMNS,
+                    visibleStopIndex:
+                      gridProps.visibleRowStopIndex * NUM_COLUMNS,
+                  })
+                }}
+                ref={ref}
+                width={width}
+              >
+                {Cell}
+              </Grid>
+            )}
+          </InfiniteLoader>
+        )}
+      </AutoSizer>
+    </div>
   )
 }
 

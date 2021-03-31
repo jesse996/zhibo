@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import ReactPlayer from 'react-player'
 import axios from '../api/ajax'
-// import DPlayer from 'dplayer'
+import DPlayer from 'dplayer'
 
 const HuyaRoom = () => {
   const { id } = useParams()
@@ -14,32 +14,38 @@ const HuyaRoom = () => {
         data = data.data
         console.log(data)
         setUrl('https:' + data.data)
-        // const dp = new DPlayer({
-        //   container: document.getElementById('dplayer'),
-        //   live: true,
-        //   autoplay: true,
-        //   video: {
-        //     url: 'https:' + data.data,
-        //   },
-        // })
+
+        const dp = new DPlayer({
+          container: document.getElementById('dplayer'),
+          live: true,
+          autoplay: true,
+          video: {
+            url: 'https:' + data.data,
+          },
+        })
+        dp.on('error', (err) => {
+          console.log(err)
+        })
       })
       .catch((e) => {
-        alert(e.message)
+        alert(e.data)
       })
   }, [])
   return (
     <div>
-      {/* id:{id} */}
-      {/* <div className="h-55"> */}
-      <ReactPlayer
+      {/* <ReactPlayer
         url={url}
-        playing={true}
+        // playing={true}
         controls={true}
         width={'100%'}
         height={'100%'}
-      />
-      {/* </div> */}
-      {/* <div id="dplayer"></div> */}
+        // onError={(error, data) => {
+        //   // alert(error)
+        //   console.log('error:' + error)
+        //   console.log(data)
+        // }}
+      /> */}
+      <div id="dplayer"></div>
     </div>
   )
 }

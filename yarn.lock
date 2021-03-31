@@ -182,7 +182,7 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.12.13"
 
-"@babel/runtime@^7.1.2", "@babel/runtime@^7.12.1":
+"@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.12.1":
   version "7.13.10"
   resolved "https://registry.npm.taobao.org/@babel/runtime/download/@babel/runtime-7.13.10.tgz?cache=0&sync_timestamp=1615243220467&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40babel%2Fruntime%2Fdownload%2F%40babel%2Fruntime-7.13.10.tgz#47d42a57b6095f4468da440388fdbad8bebf0d7d"
   integrity sha1-R9QqV7YJX0Ro2kQDiP262L6/DX0=
@@ -228,6 +228,13 @@
   integrity sha1-PjWx9ohscSzZprr2qgsxx1RyFBQ=
   dependencies:
     "@better-scroll/shared-utils" "^2.2.1"
+
+"@better-scroll/infinity@^2.2.1":
+  version "2.2.1"
+  resolved "https://registry.npm.taobao.org/@better-scroll/infinity/download/@better-scroll/infinity-2.2.1.tgz#d5aa9efdc37fe5bc388c62fe1d723826cf911d7c"
+  integrity sha1-1aqe/cN/5bw4jGL+HXI4Js+RHXw=
+  dependencies:
+    "@better-scroll/core" "^2.2.1"
 
 "@better-scroll/pull-up@^2.2.1":
   version "2.2.1"
@@ -323,6 +330,11 @@ acorn@^7.0.0:
   version "7.4.1"
   resolved "https://registry.npm.taobao.org/acorn/download/acorn-7.4.1.tgz?cache=0&sync_timestamp=1615305874483&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Facorn%2Fdownload%2Facorn-7.4.1.tgz#feaed255973d2e77555b83dbc08851a6c63520fa"
   integrity sha1-/q7SVZc9LndVW4PbwIhRpsY1IPo=
+
+add@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.npm.taobao.org/add/download/add-2.0.6.tgz#248f0a9f6e5a528ef2295dbeec30532130ae2235"
+  integrity sha1-JI8Kn25aUo7yKV2+7DBTITCuIjU=
 
 ansi-styles@^3.2.1:
   version "3.2.1"
@@ -772,7 +784,7 @@ loose-envify@^1.1.0, loose-envify@^1.2.0, loose-envify@^1.3.1, loose-envify@^1.4
   dependencies:
     js-tokens "^3.0.0 || ^4.0.0"
 
-memoize-one@^5.1.1:
+"memoize-one@>=3.1.1 <6", memoize-one@^5.1.1:
   version "5.1.1"
   resolved "https://registry.npm.taobao.org/memoize-one/download/memoize-one-5.1.1.tgz#047b6e3199b508eaec03504de71229b8eb1d75c0"
   integrity sha1-BHtuMZm1COrsA1BN5xIpuOsddcA=
@@ -1036,6 +1048,24 @@ react-router@5.2.0:
     tiny-invariant "^1.0.2"
     tiny-warning "^1.0.0"
 
+react-virtualized-auto-sizer@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.npm.taobao.org/react-virtualized-auto-sizer/download/react-virtualized-auto-sizer-1.0.5.tgz#9eeeb8302022de56fbd7a860b08513120ce36509"
+  integrity sha1-nu64MCAi3lb716hgsIUTEgzjZQk=
+
+react-window-infinite-loader@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.npm.taobao.org/react-window-infinite-loader/download/react-window-infinite-loader-1.0.7.tgz#958ef1a689d20dce122ef377583acd987760aee8"
+  integrity sha1-lY7xponSDc4SLvN3WDrNmHdgrug=
+
+react-window@^1.8.6:
+  version "1.8.6"
+  resolved "https://registry.npm.taobao.org/react-window/download/react-window-1.8.6.tgz#d011950ac643a994118632665aad0c6382e2a112"
+  integrity sha1-0BGVCsZDqZQRhjJmWq0MY4LioRI=
+  dependencies:
+    "@babel/runtime" "^7.0.0"
+    memoize-one ">=3.1.1 <6"
+
 react@^17.0.1:
   version "17.0.2"
   resolved "https://registry.npm.taobao.org/react/download/react-17.0.2.tgz?cache=0&sync_timestamp=1616689013898&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Freact%2Fdownload%2Freact-17.0.2.tgz#d0b5cc516d29eb3eee383f75b62864cfb6800037"
@@ -1231,3 +1261,8 @@ xtend@^4.0.2:
   version "4.0.2"
   resolved "https://registry.npm.taobao.org/xtend/download/xtend-4.0.2.tgz#bb72779f5fa465186b1f438f674fa347fdb5db54"
   integrity sha1-u3J3n1+kZRhrH0OPZ0+jR/2121Q=
+
+yarn@^1.22.10:
+  version "1.22.10"
+  resolved "https://registry.npm.taobao.org/yarn/download/yarn-1.22.10.tgz#c99daa06257c80f8fa2c3f1490724e394c26b18c"
+  integrity sha1-yZ2qBiV8gPj6LD8UkHJOOUwmsYw=
