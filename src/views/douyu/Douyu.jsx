@@ -64,7 +64,7 @@ const douyu = () => {
     const i = douyuData[itemIndex] || {}
 
     return (
-      <div className="bg-blue-200 flex flex-col" key={itemIndex} style={style}>
+      <div className="flex flex-col" key={itemIndex} style={style}>
         <Link to={`/douyu/${i.rid}`}>
           <img src={i.coverImg} className="h-24 w-48"></img>
           <div className="flex-grow ">
@@ -77,7 +77,7 @@ const douyu = () => {
   }
 
   return (
-    <div className="h-screen w-screen">
+    <div className="h-screen w-screen bg-blue-200">
       <div>douyu</div>
       <AutoSizer>
         {({ height, width }) => (

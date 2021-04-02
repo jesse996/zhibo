@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import ReactPlayer from 'react-player'
 import axios from '../../api/ajax'
-// import DPlayer from 'dplayer'
+import DPlayer from 'dplayer'
 
 const DouyuRoom = () => {
   const { id } = useParams()
@@ -15,26 +15,27 @@ const DouyuRoom = () => {
         console.log(data)
         setUrl(data)
 
-        //Dplayer
-        // const dp = new DPlayer({
-        //   container: document.getElementById('dplayer'),
-        //   live: true,
-        //   autoplay: true,
-        //   video: {
-        //     url: 'https:' + data.data,
-        //   },
-        // })
-        // dp.on('error', (err) => {
-        //   console.log(err)
-        // })
+        // Dplayer
+        const dp = new DPlayer({
+          container: document.getElementById('dplayer'),
+          live: true,
+          autoplay: true,
+          video: {
+            url: data,
+          },
+        })
+        dp.on('error', (err) => {
+          console.log(err)
+        })
       })
       .catch((e) => {
         console.log('ajax error:' + JSON.stringify(e))
+        // alert('房间未开播！')
       })
   }, [])
   return (
     <div>
-      <ReactPlayer
+      {/* <ReactPlayer
         url={url}
         // muted={true}
         // playing={true}
@@ -45,8 +46,8 @@ const DouyuRoom = () => {
           // alert(error)
           console.log('react player error:' + error)
         }}
-      />
-      {/* <div id="dplayer"></div> */}
+      /> */}
+      <div id="dplayer"></div>
     </div>
   )
 }
