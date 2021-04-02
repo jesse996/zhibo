@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import huyaReducer from './views/huyaSlice.js'
+import huyaReducer from './views/huya/huyaSlice.js'
 
 export default configureStore({
   reducer: {

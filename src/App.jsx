@@ -1,8 +1,8 @@
 import { Provider } from 'react-redux'
 import { HashRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import store from './store'
-import Huya from './views/Huya'
-import HuyaRoom from './views/HuyaRoom'
+import Huya from './views/huya/Huya'
+import HuyaRoom from './views/huya/HuyaRoom'
 
 function App() {
   return (
@@ -12,9 +12,7 @@ function App() {
           <Route path="/huya/:id">
             <HuyaRoom></HuyaRoom>
           </Route>
-          <Route
-            path="/huya"
-          >
+          <Route path="/huya">
             <Huya></Huya>
           </Route>
           <Route path="/" exact>

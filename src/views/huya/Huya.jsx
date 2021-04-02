@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { FixedSizeGrid as Grid } from 'react-window'
 import InfiniteLoader from 'react-window-infinite-loader'
 import AutoSizer from 'react-virtualized-auto-sizer'
-import axios from '../api/ajax'
+import axios from '../../api/ajax'
 import { useDispatch } from 'react-redux'
 import { addRooms } from './huyaSlice'
 

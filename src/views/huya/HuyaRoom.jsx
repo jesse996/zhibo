@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import ReactPlayer from 'react-player'
-import axios from '../api/ajax'
+import axios from '../../api/ajax'
 import DPlayer from 'dplayer'
 
 const HuyaRoom = () => {
