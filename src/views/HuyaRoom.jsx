@@ -15,37 +15,38 @@ const HuyaRoom = () => {
         console.log(data)
         setUrl('https:' + data.data)
 
-        const dp = new DPlayer({
-          container: document.getElementById('dplayer'),
-          live: true,
-          autoplay: true,
-          video: {
-            url: 'https:' + data.data,
-          },
-        })
-        dp.on('error', (err) => {
-          console.log(err)
-        })
+        //Dplayer
+        // const dp = new DPlayer({
+        //   container: document.getElementById('dplayer'),
+        //   live: true,
+        //   autoplay: true,
+        //   video: {
+        //     url: 'https:' + data.data,
+        //   },
+        // })
+        // dp.on('error', (err) => {
+        //   console.log(err)
+        // })
       })
       .catch((e) => {
-        alert(e.data)
+        console.log('ajax error:' + e)
       })
   }, [])
   return (
     <div>
-      {/* <ReactPlayer
-        url={url}
-        // playing={true}
+      <ReactPlayer
+        url={'http://tx2play1.douyucdn.cn/live/5720533ryOvqbb7E.flv'}
+        playing={true}
         controls={true}
         width={'100%'}
         height={'100%'}
-        // onError={(error, data) => {
-        //   // alert(error)
-        //   console.log('error:' + error)
-        //   console.log(data)
-        // }}
-      /> */}
-      <div id="dplayer"></div>
+        onError={(error, data) => {
+          // alert(error)
+          console.log('react player error:' + error)
+          console.log(data)
+        }}
+      />
+      {/* <div id="dplayer"></div> */}
     </div>
   )
 }

@@ -32,7 +32,7 @@ const Huya = () => {
   }, [huyaData])
 
   useEffect(() => {
-    if (huyaData?.length === 0) onPullingUp()
+    // if (huyaData?.length === 0) onPullingUp()
   }, [])
 
   const onPullingUp = () => {
@@ -80,6 +80,7 @@ const Huya = () => {
 
   return (
     <div className="h-screen w-screen">
+      <div>huya</div>
       <AutoSizer>
         {({ height, width }) => (
           <InfiniteLoader
