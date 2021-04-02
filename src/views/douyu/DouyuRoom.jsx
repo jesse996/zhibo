@@ -7,6 +7,7 @@ import DPlayer from 'dplayer'
 const DouyuRoom = () => {
   const { id } = useParams()
   const [url, setUrl] = useState('')
+  const [isError, setIsError] = useState(false)
   useEffect(() => {
     axios
       .get(`douyu/url/${id}`)
@@ -30,6 +31,7 @@ const DouyuRoom = () => {
       })
       .catch((e) => {
         console.log('ajax error:' + JSON.stringify(e))
+        setIsError(true)
         // alert('房间未开播！')
       })
   }, [])
@@ -47,7 +49,7 @@ const DouyuRoom = () => {
           console.log('react player error:' + error)
         }}
       /> */}
-      <div id="dplayer"></div>
+      {isError ? <div>房间未开播</div> : <div id="dplayer"></div>}
     </div>
   )
 }

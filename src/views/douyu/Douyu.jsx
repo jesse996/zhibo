@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { FixedSizeGrid as Grid } from 'react-window'
@@ -6,56 +6,60 @@ import InfiniteLoader from 'react-window-infinite-loader'
 import AutoSizer from 'react-virtualized-auto-sizer'
 import axios from '../../api/ajax'
 import { useDispatch } from 'react-redux'
-import { addRooms } from './slice'
+import { addRooms, setTotal } from './slice'
 
 const douyu = () => {
   let douyuData = useSelector((state) => state.douyu.liveRooms)
   const dispatch = useDispatch()
 
+  useEffect(() => {
+    if (douyuData?.length === 0) onPullingUp()
+  }, [douyuData])
+
   const NUM_COLUMNS = 2
-  const [totalCount, setTotalCount] = useState(douyuData.length)
+  // const [totalCount, setTotalCount] = useState(douyuData.length)
+  let totalCount = useSelector((state) => state.douyu.total)
   const [rowCount, setRowCount] = useState(totalCount / NUM_COLUMNS)
 
   const isItemLoaded = (index) => !!douyuData[index]
 
   const loadMoreItems = (startIndex, stopIndex) => {
-    // console.log('startIndex:', startIndex)
-    // console.log('stopIndex:', stopIndex)
-    return new Promise((resolve) => resolve())
+    console.log('startIndex:', startIndex)
+    console.log('stopIndex:', stopIndex)
+    return new Promise(async (resolve) => {
+      await onPullingUp()
+      resolve()
+    })
   }
 
   useEffect(() => {
     // console.log('douyuData----')
-    console.log(douyuData)
-    setRowCount(douyuData.length / NUM_COLUMNS)
-  }, [douyuData])
+    setRowCount(totalCount / NUM_COLUMNS)
+  }, [totalCount])
 
-  useEffect(() => {
-    if (douyuData?.length === 0) onPullingUp()
-  }, [])
-
-  const onPullingUp = () => {
+  const onPullingUp = useCallback(() => {
     let count = douyuData.length
     let SIZE = 20 //每页默认20个
     let page = count / SIZE
     axios
       .get('douyu', {
-        // params: {
-        //   page: page + 1,
-        //   size: SIZE,
-        // },
+        params: {
+          page: page + 1,
+          size: SIZE,
+        },
       })
       .then((data) => {
         console.log(data)
         data = data.data
-        setTotalCount(data.total)
+        // setTotalCount(data.total)
+        dispatch(setTotal(data.total))
         dispatch(addRooms(data.list))
       })
       .catch((e) => {
         console.log(e)
         alert('未开播')
       })
-  }
+  }, [douyuData])
 
   const Cell = (props) => {
     const { columnIndex, rowIndex, style } = props
@@ -92,14 +96,14 @@ const douyu = () => {
         {({ height, width }) => (
           <InfiniteLoader
             isItemLoaded={isItemLoaded}
-            itemCount={douyuData.length}
+            itemCount={totalCount}
             loadMoreItems={loadMoreItems}
           >
             {({ onItemsRendered, ref }) => (
               <Grid
                 className="bg-blue-200  "
                 columnCount={NUM_COLUMNS}
-                columnWidth={width / 2 }
+                columnWidth={width / 2}
                 height={height - 70}
                 rowCount={rowCount}
                 rowHeight={200}

@@ -5,6 +5,7 @@ export const counterSlice = createSlice({
   initialState: {
     liveRooms: [],
     y: 0,
+    total: 0, //总个数
   },
   reducers: {
     addRooms: (state, action) => {
@@ -13,10 +14,13 @@ export const counterSlice = createSlice({
     setY: (state, action) => {
       state.y = action.payload
     },
+    setTotal: (state, action) => {
+      state.total = action.payload
+    },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { addRooms, setY } = counterSlice.actions
+export const { addRooms, setY, setTotal } = counterSlice.actions
 
 export default counterSlice.reducer
