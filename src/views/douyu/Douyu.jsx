@@ -49,11 +49,11 @@ const douyu = () => {
         console.log(data)
         data = data.data
         setTotalCount(data.total)
-        // data.list = data.list.map((i) => ({ ...i, href: i.href.substring(21) }))
         dispatch(addRooms(data.list))
       })
       .catch((e) => {
         console.log(e)
+        alert('未开播')
       })
   }
 
@@ -64,10 +64,17 @@ const douyu = () => {
     const i = douyuData[itemIndex] || {}
 
     return (
-      <div className="flex flex-col" key={itemIndex} style={style}>
-        <Link to={`/douyu/${i.rid}`}>
-          <img src={i.coverImg} className="h-24 w-48"></img>
-          <div className="flex-grow ">
+      <div
+        className="flex flex-col  items-center"
+        key={itemIndex}
+        style={style}
+      >
+        <Link
+          to={`/douyu/${i.rid}`}
+          className="flex flex-col justify-center  items-start w-44 "
+        >
+          <img src={i.coverImg} className="h-32 w-44"></img>
+          <div className="flex flex-col">
             <div className="text-sm">{i.name}</div>
             <div className="text-sm">{i.title}</div>
           </div>
@@ -77,8 +84,10 @@ const douyu = () => {
   }
 
   return (
-    <div className="h-screen w-screen bg-blue-200">
-      <div>douyu</div>
+    <div className="h-screen">
+      <div className="bg-yellow-100 text-xl" style={{ height: 70 }}>
+        斗鱼
+      </div>
       <AutoSizer>
         {({ height, width }) => (
           <InfiniteLoader
@@ -88,10 +97,10 @@ const douyu = () => {
           >
             {({ onItemsRendered, ref }) => (
               <Grid
-                className="List"
+                className="bg-blue-200  "
                 columnCount={NUM_COLUMNS}
-                columnWidth={200}
-                height={height}
+                columnWidth={width / 2 }
+                height={height - 70}
                 rowCount={rowCount}
                 rowHeight={200}
                 onItemsRendered={(gridProps) => {
