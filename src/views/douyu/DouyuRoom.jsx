@@ -2,18 +2,18 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import ReactPlayer from 'react-player'
 import axios from '../../api/ajax'
-import DPlayer from 'dplayer'
+// import DPlayer from 'dplayer'
 
 const DouyuRoom = () => {
   const { id } = useParams()
   const [url, setUrl] = useState('')
   useEffect(() => {
     axios
-      .get(`Douyu/url/${id}`)
+      .get(`douyu/url/${id}`)
       .then((data) => {
         data = data.data
         console.log(data)
-        setUrl('https:' + data.data)
+        setUrl(data)
 
         //Dplayer
         // const dp = new DPlayer({
@@ -29,21 +29,21 @@ const DouyuRoom = () => {
         // })
       })
       .catch((e) => {
-        console.log('ajax error:' + e)
+        console.log('ajax error:' + JSON.stringify(e))
       })
   }, [])
   return (
     <div>
       <ReactPlayer
-        url={'http://tx2play1.douyucdn.cn/live/5720533ryOvqbb7E.flv'}
-        playing={true}
+        url={url}
+        // muted={true}
+        // playing={true}
         controls={true}
-        width={'100%'}
-        height={'100%'}
+        width={'100'}
+        height={'100'}
         onError={(error, data) => {
           // alert(error)
           console.log('react player error:' + error)
-          console.log(data)
         }}
       />
       {/* <div id="dplayer"></div> */}

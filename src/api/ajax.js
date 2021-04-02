@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const http = axios.create({
   baseURL: 'http://localhost:8080/',
-  timeout: 5000,
+  timeout: 10000,
 })
 
 // Add a request interceptor
@@ -20,7 +20,7 @@ http.interceptors.request.use(
 http.interceptors.response.use(
   (response) => {
     // Do something before request is sent
-    if (response.status !== 200 || response.data.code !== 1) {
+    if (response.status !== 200 || response.data.code !== 0) {
       return Promise.reject(response.data)
     }
     return response.data
