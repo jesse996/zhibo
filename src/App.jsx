@@ -18,7 +18,7 @@ function App() {
             <Huya></Huya>
           </Route>
           <Route path="/" exact>
-            <Redirect to="/huya"></Redirect>
+            <Redirect to="/douyu"></Redirect>
           </Route>
 
           <Route path="/douyu/:id">

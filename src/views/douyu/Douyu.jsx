@@ -57,7 +57,6 @@ const douyu = () => {
       })
       .catch((e) => {
         console.log(e)
-        alert('未开播')
       })
   }, [douyuData])
 
