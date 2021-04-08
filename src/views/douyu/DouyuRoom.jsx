@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import ReactPlayer from 'react-player'
 import axios from '../../api/ajax'
-import DPlayer from 'dplayer'
 
 const DouyuRoom = () => {
   const { id } = useParams()
@@ -15,41 +14,31 @@ const DouyuRoom = () => {
         data = data.data
         console.log(data)
         setUrl(data)
-
-        // Dplayer
-        const dp = new DPlayer({
-          container: document.getElementById('dplayer'),
-          live: true,
-          autoplay: true,
-          video: {
-            url: data,
-          },
-        })
-        dp.on('error', (err) => {
-          console.log(err)
-        })
       })
       .catch((e) => {
         console.log('ajax error:' + JSON.stringify(e))
         setIsError(true)
-        // alert('房间未开播！')
       })
   }, [])
   return (
-    <div>
-      {/* <ReactPlayer
-        url={url}
-        // muted={true}
-        // playing={true}
-        controls={true}
-        width={'100'}
-        height={'100'}
-        onError={(error, data) => {
-          // alert(error)
-          console.log('react player error:' + error)
-        }}
-      /> */}
-      {isError ? <div>房间未开播</div> : <div id="dplayer"></div>}
+    <div className="w-screen md:w-2/3  mx-auto h-screen">
+      <div className="bg-gray-100 py-3 text-xl pl-3"> 斗鱼</div>
+
+      {isError ? (
+        <div>房间未开播</div>
+      ) : (
+        <ReactPlayer
+          className=" relative max-h-screen mx-auto"
+          url={url}
+          playing={true}
+          controls={true}
+          width={'100'}
+          height={'100'}
+          onError={(error, data) => {
+            console.log('react player error:' + error)
+          }}
+        />
+      )}
     </div>
   )
 }

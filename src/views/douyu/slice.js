@@ -9,7 +9,12 @@ export const counterSlice = createSlice({
   },
   reducers: {
     addRooms: (state, action) => {
-      state.liveRooms.push(...action.payload)
+      // state.liveRooms.push(...action.payload)
+      let start = action.payload.start
+      // console.log(action.payload)
+      for (let i = 0; i < action.payload.list.length; i++) {
+        state.liveRooms[start + i] = action.payload.list[i]
+      }
     },
     setY: (state, action) => {
       state.y = action.payload

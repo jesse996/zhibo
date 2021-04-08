@@ -16,32 +16,51 @@ const douyu = () => {
     if (douyuData?.length === 0) onPullingUp()
   }, [douyuData])
 
-  const NUM_COLUMNS = 2
+  const NUM_COLUMNS = 3
   // const [totalCount, setTotalCount] = useState(douyuData.length)
   let totalCount = useSelector((state) => state.douyu.total)
   const [rowCount, setRowCount] = useState(totalCount / NUM_COLUMNS)
 
-  const isItemLoaded = (index) => !!douyuData[index]
+  const isItemLoaded = (index) => {
+    return !!douyuData[index]
+  }
 
   const loadMoreItems = (startIndex, stopIndex) => {
-    console.log('startIndex:', startIndex)
-    console.log('stopIndex:', stopIndex)
-    return new Promise(async (resolve) => {
-      await onPullingUp()
+    let SIZE = stopIndex - startIndex
+    let page = parseInt(startIndex / SIZE) + 1
+    console.log('page:' + page)
+    console.log('size:' + SIZE)
+    new Promise((resolve) => {
+      axios
+        .get('douyu', {
+          params: {
+            page: page,
+            size: SIZE,
+          },
+        })
+        .then((data) => {
+          console.log(data)
+          data = data.data
+          // setTotalCount(data.total)
+          dispatch(setTotal(data.total))
+          dispatch(addRooms({ start: startIndex, list: data.list }))
+        })
+        .catch((e) => {
+          console.log(e)
+        })
       resolve()
     })
   }
 
   useEffect(() => {
-    // console.log('douyuData----')
     setRowCount(totalCount / NUM_COLUMNS)
   }, [totalCount])
 
-  const onPullingUp = useCallback(() => {
+  const onPullingUp = useCallback(async () => {
     let count = douyuData.length
     let SIZE = 20 //每页默认20个
     let page = count / SIZE
-    axios
+    return axios
       .get('douyu', {
         params: {
           page: page + 1,
@@ -53,7 +72,7 @@ const douyu = () => {
         data = data.data
         // setTotalCount(data.total)
         dispatch(setTotal(data.total))
-        dispatch(addRooms(data.list))
+        dispatch(addRooms({ start: 0, list: data.list }))
       })
       .catch((e) => {
         console.log(e)
@@ -88,7 +107,10 @@ const douyu = () => {
 
   return (
     <div className="h-screen">
-      <div className="bg-yellow-100 text-xl" style={{ height: 70 }}>
+      <div
+        className=" bg-gray-50 text-xl flex items-center"
+        style={{ height: 70 }}
+      >
         斗鱼
       </div>
       <AutoSizer>
@@ -100,9 +122,9 @@ const douyu = () => {
           >
             {({ onItemsRendered, ref }) => (
               <Grid
-                className="bg-blue-200  "
+                className="bg-gray-200"
                 columnCount={NUM_COLUMNS}
-                columnWidth={width / 2}
+                columnWidth={width / NUM_COLUMNS - 10}
                 height={height - 70}
                 rowCount={rowCount}
                 rowHeight={200}
