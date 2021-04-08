@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState, forwardRef } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { FixedSizeGrid as Grid } from 'react-window'
@@ -9,17 +9,20 @@ import { useDispatch } from 'react-redux'
 import { addRooms, setTotal } from './slice'
 
 const douyu = () => {
+  let width = document.querySelector('body').offsetWidth
+  let NUM_COLUMNS = 2
+  if (width > 500) NUM_COLUMNS = 3
+
   let douyuData = useSelector((state) => state.douyu.liveRooms)
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    if (douyuData?.length === 0) onPullingUp()
-  }, [douyuData])
-
-  const NUM_COLUMNS = 3
-  // const [totalCount, setTotalCount] = useState(douyuData.length)
   let totalCount = useSelector((state) => state.douyu.total)
   const [rowCount, setRowCount] = useState(totalCount / NUM_COLUMNS)
+
+  //初始化
+  useEffect(() => {
+    if (douyuData?.length === 0) loadMoreItems(0, 30)
+  }, [douyuData])
 
   const isItemLoaded = (index) => {
     return !!douyuData[index]
@@ -28,8 +31,6 @@ const douyu = () => {
   const loadMoreItems = (startIndex, stopIndex) => {
     let SIZE = stopIndex - startIndex
     let page = parseInt(startIndex / SIZE) + 1
-    console.log('page:' + page)
-    console.log('size:' + SIZE)
     new Promise((resolve) => {
       axios
         .get('douyu', {
@@ -39,7 +40,6 @@ const douyu = () => {
           },
         })
         .then((data) => {
-          console.log(data)
           data = data.data
           // setTotalCount(data.total)
           dispatch(setTotal(data.total))
@@ -55,29 +55,6 @@ const douyu = () => {
   useEffect(() => {
     setRowCount(totalCount / NUM_COLUMNS)
   }, [totalCount])
-
-  const onPullingUp = useCallback(async () => {
-    let count = douyuData.length
-    let SIZE = 20 //每页默认20个
-    let page = count / SIZE
-    return axios
-      .get('douyu', {
-        params: {
-          page: page + 1,
-          size: SIZE,
-        },
-      })
-      .then((data) => {
-        console.log(data)
-        data = data.data
-        // setTotalCount(data.total)
-        dispatch(setTotal(data.total))
-        dispatch(addRooms({ start: 0, list: data.list }))
-      })
-      .catch((e) => {
-        console.log(e)
-      })
-  }, [douyuData])
 
   const Cell = (props) => {
     const { columnIndex, rowIndex, style } = props
@@ -105,6 +82,18 @@ const douyu = () => {
     )
   }
 
+  const innerElementType = forwardRef(({ style, ...rest }, ref) => (
+    <div
+      ref={ref}
+      style={{
+        ...style,
+        position: 'relative',
+        margin: 'auto',
+      }}
+      {...rest}
+    />
+  ))
+
   return (
     <div className="h-screen">
       <div
@@ -128,6 +117,7 @@ const douyu = () => {
                 height={height - 70}
                 rowCount={rowCount}
                 rowHeight={200}
+                innerElementType={innerElementType}
                 onItemsRendered={(gridProps) => {
                   onItemsRendered({
                     overscanStartIndex:
