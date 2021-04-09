@@ -313,7 +313,7 @@
 
 "@types/react-redux@^7.1.16":
   version "7.1.16"
-  resolved "https://registry.npm.taobao.org/@types/react-redux/download/@types/react-redux-7.1.16.tgz"
+  resolved "https://registry.npm.taobao.org/@types/react-redux/download/@types/react-redux-7.1.16.tgz#0fbd04c2500c12105494c83d4a3e45c084e3cb21"
   integrity sha1-D70EwlAMEhBUlMg9Sj5FwITjyyE=
   dependencies:
     "@types/hoist-non-react-statics" "^3.3.0"
@@ -336,6 +336,28 @@
   integrity sha1-BRwNIpvUitkFWKHbUAcIEnzFEvc=
   dependencies:
     "@types/history" "*"
+    "@types/react" "*"
+
+"@types/react-virtualized-auto-sizer@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.npm.taobao.org/@types/react-virtualized-auto-sizer/download/@types/react-virtualized-auto-sizer-1.0.0.tgz?cache=0&sync_timestamp=1613384731439&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Freact-virtualized-auto-sizer%2Fdownload%2F%40types%2Freact-virtualized-auto-sizer-1.0.0.tgz#fc32f30a8dab527b5816f3a757e1e1d040c8f272"
+  integrity sha1-/DLzCo2rUntYFvOnV+Hh0EDI8nI=
+  dependencies:
+    "@types/react" "*"
+
+"@types/react-window-infinite-loader@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.npm.taobao.org/@types/react-window-infinite-loader/download/@types/react-window-infinite-loader-1.0.3.tgz#fade6e7c625a348e83c4e1f0c897736537bc7f8c"
+  integrity sha1-+t5ufGJaNI6DxOHwyJdzZTe8f4w=
+  dependencies:
+    "@types/react" "*"
+    "@types/react-window" "*"
+
+"@types/react-window@*", "@types/react-window@^1.8.2":
+  version "1.8.2"
+  resolved "https://registry.npm.taobao.org/@types/react-window/download/@types/react-window-1.8.2.tgz?cache=0&sync_timestamp=1613384731571&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Freact-window%2Fdownload%2F%40types%2Freact-window-1.8.2.tgz#a5a6b2762ce73ffaab7911ee1397cf645f2459fe"
+  integrity sha1-paaydiznP/qreRHuE5fPZF8kWf4=
+  dependencies:
     "@types/react" "*"
 
 "@types/react@*", "@types/react@^17.0.3":

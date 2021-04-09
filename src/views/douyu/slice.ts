@@ -1,14 +1,23 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+// import type { RootState } from '../../store'
 
-export const counterSlice = createSlice({
+interface DouyuState {
+  liveRooms: any[]
+  y: number
+  total: number
+}
+
+const initialState: DouyuState = {
+  liveRooms: [],
+  y: 0,
+  total: 0,
+}
+
+export const douyuSlice = createSlice({
   name: 'douyu',
-  initialState: {
-    liveRooms: [],
-    y: 0,
-    total: 0, //总个数
-  },
+  initialState,
   reducers: {
-    addRooms: (state, action) => {
+    addRooms: (state, action: PayloadAction<any>) => {
       // state.liveRooms.push(...action.payload)
       let start = action.payload.start
       // console.log(action.payload)
@@ -26,6 +35,6 @@ export const counterSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { addRooms, setY, setTotal } = counterSlice.actions
+export const { addRooms, setY, setTotal } = douyuSlice.actions
 
-export default counterSlice.reducer
+export default douyuSlice.reducer

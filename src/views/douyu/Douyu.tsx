@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState, forwardRef } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { FixedSizeGrid as Grid } from 'react-window'
@@ -7,16 +8,18 @@ import AutoSizer from 'react-virtualized-auto-sizer'
 import axios from '../../api/ajax'
 import { useDispatch } from 'react-redux'
 import { addRooms, setTotal } from './slice'
+import { useAppDispatch, useAppSelector } from '../../hook'
+import { RootState } from '../../store'
 
 const douyu = () => {
-  let width = document.querySelector('body').offsetWidth
+  let width = document.querySelector('body')!.offsetWidth
   let NUM_COLUMNS = 2
   if (width > 500) NUM_COLUMNS = 3
 
-  let douyuData = useSelector((state) => state.douyu.liveRooms)
-  const dispatch = useDispatch()
+  let douyuData = useAppSelector((state) => state.douyu.liveRooms)
+  const dispatch = useAppDispatch()
 
-  let totalCount = useSelector((state) => state.douyu.total)
+  let totalCount = useAppSelector((state) => state.douyu.total)
   const [rowCount, setRowCount] = useState(totalCount / NUM_COLUMNS)
 
   //初始化
@@ -24,14 +27,14 @@ const douyu = () => {
     if (douyuData?.length === 0) loadMoreItems(0, 30)
   }, [douyuData])
 
-  const isItemLoaded = (index) => {
+  const isItemLoaded = (index: number) => {
     return !!douyuData[index]
   }
 
-  const loadMoreItems = (startIndex, stopIndex) => {
+  const loadMoreItems = (startIndex: number, stopIndex: number) => {
     let SIZE = stopIndex - startIndex
-    let page = parseInt(startIndex / SIZE) + 1
-    new Promise((resolve) => {
+    let page = Math.floor(startIndex / SIZE) + 1
+    return new Promise((resolve) => {
       axios
         .get('douyu', {
           params: {
@@ -48,7 +51,7 @@ const douyu = () => {
         .catch((e) => {
           console.log(e)
         })
-      resolve()
+      resolve(true)
     })
   }
 
@@ -56,7 +59,7 @@ const douyu = () => {
     setRowCount(totalCount / NUM_COLUMNS)
   }, [totalCount])
 
-  const Cell = (props) => {
+  const Cell = (props: any) => {
     const { columnIndex, rowIndex, style } = props
     const itemIndex = rowIndex * NUM_COLUMNS + columnIndex
 
@@ -82,7 +85,7 @@ const douyu = () => {
     )
   }
 
-  const innerElementType = forwardRef(({ style, ...rest }, ref) => (
+  const innerElementType = forwardRef<any, any>(({ style, ...rest }, ref) => (
     <div
       ref={ref}
       style={{
