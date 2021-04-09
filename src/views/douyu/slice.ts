@@ -7,6 +7,11 @@ interface DouyuState {
   total: number
 }
 
+interface RoomPayload {
+  start: number
+  list: any[]
+}
+
 const initialState: DouyuState = {
   liveRooms: [],
   y: 0,
@@ -17,7 +22,7 @@ export const douyuSlice = createSlice({
   name: 'douyu',
   initialState,
   reducers: {
-    addRooms: (state, action: PayloadAction<any>) => {
+    addRooms: (state, action: PayloadAction<RoomPayload>) => {
       // state.liveRooms.push(...action.payload)
       let start = action.payload.start
       // console.log(action.payload)
@@ -25,10 +30,10 @@ export const douyuSlice = createSlice({
         state.liveRooms[start + i] = action.payload.list[i]
       }
     },
-    setY: (state, action) => {
+    setY: (state, action: PayloadAction<number>) => {
       state.y = action.payload
     },
-    setTotal: (state, action) => {
+    setTotal: (state, action: PayloadAction<number>) => {
       state.total = action.payload
     },
   },
