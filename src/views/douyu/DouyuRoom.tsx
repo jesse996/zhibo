@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import ReactPlayer from 'react-player'
 import axios from '../../api/ajax'
@@ -19,6 +19,13 @@ const DouyuRoom = () => {
         data = data.data
         console.log(data)
         setUrl(data)
+
+        //直播正在连线中
+        axios.get(data).catch((e) => {
+          console.log('aaaa')
+          console.log(e)
+          setIsError(true)
+        })
       })
       .catch((e) => {
         console.log('ajax error:' + JSON.stringify(e))
