@@ -20,11 +20,13 @@ const DouyuRoom = () => {
         console.log(data)
         setUrl(data)
 
-        //直播正在连线中
         axios.get(data).catch((e) => {
-          console.log('aaaa')
+          //直播正在连线中
           console.log(e)
           setIsError(true)
+          axios.delete(`douyu/${id}`).catch((e) => {
+            console.log(e)
+          })
         })
       })
       .catch((e) => {
