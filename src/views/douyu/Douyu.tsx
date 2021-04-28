@@ -33,6 +33,9 @@ const douyu = () => {
 
   const loadMoreItems = (startIndex: number, stopIndex: number) => {
     let SIZE = stopIndex - startIndex
+    if (SIZE === 0) {
+      return
+    }
     let page = Math.floor(startIndex / SIZE) + 1
     return new Promise((resolve) => {
       axios
