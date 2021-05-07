@@ -1,11 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
-// import huyaReducer from './views/huya/huyaSlice'
+import huyaReducer from './views/huya/slice'
 import douyuReducer from './views/douyu/slice'
-
 
 const store = configureStore({
   reducer: {
-    // huya: huyaReducer,
+    huya: huyaReducer,
     douyu: douyuReducer,
   },
 })

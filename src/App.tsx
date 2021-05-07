@@ -4,6 +4,8 @@ import { HashRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import store from './store'
 import Douyu from './views/douyu/Douyu'
 import DouyuRoom from './views/douyu/DouyuRoom'
+import Huya from './views/huya/Huya'
+import HuyaRoom from './views/huya/HuyaRoom'
 // import Huya from './views/huya/Huya'
 // import HuyaRoom from './views/huya/HuyaRoom'
 
@@ -12,12 +14,12 @@ function App() {
     <Provider store={store}>
       <Router>
         <Switch>
-          {/* <Route path="/huya/:id">
+          <Route path="/huya/:id">
             <HuyaRoom></HuyaRoom>
           </Route>
           <Route path="/huya">
             <Huya></Huya>
-          </Route> */}
+          </Route>
           <Route path="/" exact>
             <Redirect to="/douyu"></Redirect>
           </Route>
