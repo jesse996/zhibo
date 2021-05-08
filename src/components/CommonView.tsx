@@ -4,21 +4,36 @@ import { FixedSizeGrid as Grid } from 'react-window'
 import InfiniteLoader from 'react-window-infinite-loader'
 import AutoSizer from 'react-virtualized-auto-sizer'
 
-export const CommonView = (
-  isItemLoaded: any,
-  totalCount: number,
-  loadMoreItems: any,
-  NUM_COLUMNS: number,
-  rowCount: number,
-  innerElementType: any,
-  data: any[],
-  urlName: string,
-  title: string,
-  ridName:string,
-  coverImgName:string,
-  nickname:string,
-  titleName:string
-) => {
+interface Props {
+  isItemLoaded: any
+  totalCount: number
+  loadMoreItems: any
+  NUM_COLUMNS: number
+  rowCount: number
+  innerElementType: any
+  data: any[]
+  urlName: string
+  title: string
+  ridName: string
+  coverImgName: string
+  nickname: string
+  titleName: string
+}
+export const CommonView: React.FC<Props> = ({
+  isItemLoaded,
+  totalCount,
+  loadMoreItems,
+  NUM_COLUMNS,
+  rowCount,
+  innerElementType,
+  data,
+  urlName,
+  title,
+  ridName,
+  coverImgName,
+  nickname,
+  titleName,
+}) => {
   const Cell = (props: any) => {
     const { columnIndex, rowIndex, style } = props
     const itemIndex = rowIndex * NUM_COLUMNS + columnIndex
