@@ -1,5 +1,3 @@
-import { Suspense, useEffect, useState } from 'react'
-import { useParams } from 'react-router'
 import ReactPlayer from 'react-player'
 import React from 'react'
 
@@ -31,5 +29,3 @@ export const CommonRoom = ({ url, isError }: Props) => {
     </div>
   )
 }
-
-export default DouyuRoom
