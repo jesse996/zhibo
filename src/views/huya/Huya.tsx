@@ -37,7 +37,7 @@ const huya = () => {
 
   const loadMoreItems = (startIndex: number, stopIndex: number) => {
     // let SIZE = stopIndex - startIndex
-    console.log(`startIndex:${startIndex},stopIndex:${stopIndex}`)
+    // console.log(`startIndex:${startIndex},stopIndex:${stopIndex}`)
     let SIZE = 120
     let page = Math.floor(startIndex / SIZE) + 1
     return new Promise((resolve) => {

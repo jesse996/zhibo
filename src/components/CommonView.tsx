@@ -18,7 +18,7 @@ interface Props {
   nickname: string
   titleName: string
 }
-export const CommonView: React.FC<Props> = ({
+export const CommonView = ({
   isItemLoaded,
   totalCount,
   loadMoreItems,
@@ -31,7 +31,7 @@ export const CommonView: React.FC<Props> = ({
   coverImgName,
   nickname,
   titleName,
-}) => {
+}: Props) => {
   const Cell = (props: any) => {
     const { columnIndex, rowIndex, style } = props
     const itemIndex = rowIndex * NUM_COLUMNS + columnIndex
@@ -58,7 +58,6 @@ export const CommonView: React.FC<Props> = ({
     )
   }
 
-
   const innerElementType = forwardRef<any, any>(({ style, ...rest }, ref) => (
     <div
       ref={ref}
@@ -70,7 +69,6 @@ export const CommonView: React.FC<Props> = ({
       {...rest}
     />
   ))
-
 
   return (
     <div className="h-screen">
