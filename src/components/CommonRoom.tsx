@@ -3,15 +3,12 @@ import { useParams } from 'react-router'
 import ReactPlayer from 'react-player'
 import React from 'react'
 
-interface RouteParams {
-  id: string
+interface Props {
+  url: string
+  isError: boolean
 }
 
-const DouyuRoom = () => {
-  const { id } = useParams<RouteParams>()
-  const [url, setUrl] = useState('')
-  const [isError, setIsError] = useState(false)
-  
+export const CommonRoom = ({ url, isError }: Props) => {
   return (
     <div className="w-screen md:w-2/3  mx-auto h-screen">
       <div className="bg-gray-100 py-3 text-xl pl-3"> 斗鱼</div>
