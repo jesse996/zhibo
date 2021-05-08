@@ -84,7 +84,7 @@ const douyu = () => {
       title="斗鱼"
       urlName="douyu"
       ridName="rid"
-      coverImgName="coverName"
+      coverImgName="coverImg"
       nickname="name"
       titleName="title"
     ></CommonView>
