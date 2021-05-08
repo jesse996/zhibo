@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import { Link } from 'react-router-dom'
 import { FixedSizeGrid as Grid } from 'react-window'
 import InfiniteLoader from 'react-window-infinite-loader'
@@ -10,7 +10,6 @@ interface Props {
   loadMoreItems: any
   NUM_COLUMNS: number
   rowCount: number
-  innerElementType: any
   data: any[]
   urlName: string
   title: string
@@ -25,7 +24,6 @@ export const CommonView: React.FC<Props> = ({
   loadMoreItems,
   NUM_COLUMNS,
   rowCount,
-  innerElementType,
   data,
   urlName,
   title,
@@ -59,6 +57,21 @@ export const CommonView: React.FC<Props> = ({
       </div>
     )
   }
+
+
+  const innerElementType = forwardRef<any, any>(({ style, ...rest }, ref) => (
+    <div
+      ref={ref}
+      style={{
+        ...style,
+        position: 'relative',
+        margin: 'auto',
+      }}
+      {...rest}
+    />
+  ))
+
+
   return (
     <div className="h-screen">
       <div

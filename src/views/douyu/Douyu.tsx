@@ -11,6 +11,16 @@ import { addRooms, setTotal } from './slice'
 import { useAppDispatch, useAppSelector } from '../../hook'
 import { RootState } from '../../store'
 import { CommonView } from '../../components/CommonView'
+import { CommonResult } from '../../components/CommonResult'
+import { PageInfo } from '../../components/PageInfo'
+
+interface ResponsList {
+  coverImg: string
+  name: string
+  playUrl: string
+  rid: string
+  title: string
+}
 
 const douyu = () => {
   let width = document.querySelector('body')!.offsetWidth
@@ -46,8 +56,8 @@ const douyu = () => {
             size: SIZE,
           },
         })
-        .then((data) => {
-          data = data.data
+        .then((resp: CommonResult<PageInfo<ResponsList>>) => {
+          let data = resp.data
           // setTotalCount(data.total)
           dispatch(setTotal(data.total))
           dispatch(addRooms({ start: startIndex, list: data.list }))
@@ -63,7 +73,22 @@ const douyu = () => {
     setRowCount(totalCount / NUM_COLUMNS)
   }, [totalCount])
 
-  return <CommonView isItemLoaded={isItemLoaded}></CommonView>
+  return (
+    <CommonView
+      isItemLoaded={isItemLoaded}
+      totalCount={totalCount}
+      loadMoreItems={loadMoreItems}
+      NUM_COLUMNS={NUM_COLUMNS}
+      rowCount={rowCount}
+      data={douyuData}
+      title="斗鱼"
+      urlName="douyu"
+      ridName="rid"
+      coverImgName="coverName"
+      nickname="name"
+      titleName="title"
+    ></CommonView>
+  )
 }
 
 export default douyu
