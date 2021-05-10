@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { FixedSizeGrid as Grid } from 'react-window'
 import InfiniteLoader from 'react-window-infinite-loader'
 import AutoSizer from 'react-virtualized-auto-sizer'
+import { CommonDto } from './CommonDto'
 
 interface Props {
   isItemLoaded: any
@@ -13,10 +14,6 @@ interface Props {
   data: any[]
   urlName: string
   title: string
-  ridName: string
-  coverImgName: string
-  nickname: string
-  titleName: string
 }
 export const CommonView = ({
   isItemLoaded,
@@ -27,16 +24,12 @@ export const CommonView = ({
   data,
   urlName,
   title,
-  ridName,
-  coverImgName,
-  nickname,
-  titleName,
 }: Props) => {
   const Cell = (props: any) => {
     const { columnIndex, rowIndex, style } = props
     const itemIndex = rowIndex * NUM_COLUMNS + columnIndex
 
-    const i = data[itemIndex] || {}
+    const i: CommonDto = data[itemIndex] || {}
 
     return (
       <div
@@ -45,13 +38,13 @@ export const CommonView = ({
         style={style}
       >
         <Link
-          to={`/${urlName}/${i[ridName]}`}
+          to={`/${urlName}/${i.rid}`}
           className="flex flex-col justify-center  items-start w-44 "
         >
-          <img src={i[coverImgName]} className="h-32 w-44"></img>
+          <img src={i.coverImg} className="h-32 w-44"></img>
           <div className="flex flex-col">
-            <div className="text-sm">{i[nickname]}</div>
-            <div className="text-sm">{i[titleName]}</div>
+            <div className="text-sm">{i.name}</div>
+            <div className="text-sm">{i.title}</div>
           </div>
         </Link>
       </div>

@@ -77,10 +77,6 @@ const huya = () => {
       data={huyaData}
       title="虎牙"
       urlName="huya"
-      ridName="profileRoom"
-      coverImgName="screenshot"
-      nickname="nick"
-      titleName="introduction"
     ></CommonView>
   )
 }

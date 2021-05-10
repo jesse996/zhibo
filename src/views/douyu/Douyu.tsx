@@ -76,10 +76,6 @@ const douyu = () => {
       data={douyuData}
       title="斗鱼"
       urlName="douyu"
-      ridName="rid"
-      coverImgName="coverImg"
-      nickname="name"
-      titleName="title"
     ></CommonView>
   )
 }
